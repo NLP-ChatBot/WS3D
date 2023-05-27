@@ -2,22 +2,14 @@
 
 package model;
 
-import com.jme.image.Texture;
-import com.jme.math.Quaternion;
 import com.jme.scene.Node;
 import com.jme.scene.state.MaterialState;
 import com.jme.scene.state.TextureState;
-import com.jme.util.TextureManager;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Constants;
 
-/**
- * Currently discontinued. Delivery spot is not a Thing in current version.
- * @author eccastro
- */
 public class DeliverySpot  extends Thing{
     
     static Logger log = Logger.getLogger(DeliverySpot.class.getCanonicalName());
