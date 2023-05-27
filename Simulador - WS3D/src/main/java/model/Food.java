@@ -3,17 +3,12 @@
 package model;
 
 import com.jme.renderer.ColorRGBA;
-import com.jme.scene.Node;
-import worldserver3d.IconFactory;
 import com.jme.scene.state.MaterialState;
 import com.jme.scene.state.TextureState;
-import com.jme.util.export.InputCapsule;
 import com.jme.util.export.JMEExporter;
 import com.jme.util.export.JMEImporter;
-import com.jme.util.export.OutputCapsule;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
 import util.Constants;
 
 public abstract class Food extends Thing{

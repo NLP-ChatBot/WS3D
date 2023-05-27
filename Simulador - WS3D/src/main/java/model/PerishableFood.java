@@ -14,12 +14,10 @@ import com.jme.scene.state.MaterialState;
 import com.jme.scene.state.TextureState;
 import com.jme.util.TextureManager;
 import com.jme.image.Texture;
-import com.jme.math.Quaternion;
 import com.jme.renderer.ColorRGBA;
 import com.jme.util.export.InputCapsule;
 import com.jme.util.export.OutputCapsule;
 import com.jme.util.export.Savable;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Constants;
 

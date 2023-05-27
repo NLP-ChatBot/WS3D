@@ -2,12 +2,10 @@
 
 package model;
 
-import com.jme.math.Quaternion;
 import com.jme.scene.Node;
 import com.jme.scene.state.MaterialState;
 import com.jme.scene.state.TextureState;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Constants;
 

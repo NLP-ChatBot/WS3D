@@ -1,7 +1,6 @@
 
 package worldserver3d.gamestate;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import worldserver3d.view.KnapsackAndScoreFrame;
 import worldserver3d.view.WorldFrame;
@@ -51,20 +50,14 @@ import javax.swing.event.MenuListener;
 import model.Creature;
 import model.Environment;
 import model.Thing;
-import java.util.HashMap;
 import java.util.Observer;
 import com.jme.intersection.PickResults;
 import com.jme.intersection.BoundingPickResults;
-import com.jme.scene.Spatial;
 import com.jmex.game.StandardGame;
 import com.jmex.game.state.GameStateManager;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import model.VisualSensor;
 import util.Constants;
-import worldserver3d.view.EnvironmentPanel;
 import xml.ReadFromXMLFile;
 
 /**

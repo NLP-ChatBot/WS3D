@@ -2,13 +2,11 @@
 package xml;
 
 import java.io.File;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
-import model.Creature;
 import model.Environment;
 import model.Thing;
 import org.w3c.dom.Document;

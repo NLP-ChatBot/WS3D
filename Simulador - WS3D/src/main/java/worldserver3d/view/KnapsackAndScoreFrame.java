@@ -16,7 +16,6 @@ import java.util.TreeSet;
 import model.Creature;
 import model.Leaflet;
 import util.Constants;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class KnapsackAndScoreFrame extends JFrame implements Observer {

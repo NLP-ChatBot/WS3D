@@ -8,7 +8,6 @@ import com.jme.math.Vector2f;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Camera;
 import com.jme.system.DisplaySystem;
-import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -41,9 +40,7 @@ public class MouseInputListener3D implements MouseInputListener {
     private final int crotating = 0;
     private final int cmoving = 1;
     private final int omoving = 2;
-    private final int free = 3;
     private final int oscaling = 4;
-    private final double dTime = 15;
     private final String newCreaturePlaceErrorTitle = "Place a creature!";
     private final String newCreaturePlaceErrorMsg = "Not on an obstacle!!!";
 
@@ -541,8 +538,6 @@ public class MouseInputListener3D implements MouseInputListener {
             float xloc, yloc, zloc;
             Vector3f location;
             location = cam.getLocation();
-            float deltax = mouseXfin - mouseXini;
-            float deltaz = mouseYfin - mouseYini;
             //System.out.println("x:"+x+" z:"+y+" dx:"+deltax+" dz:"+deltaz);
             xloc = location.x - 0.07f * dx;
             yloc = location.y;
