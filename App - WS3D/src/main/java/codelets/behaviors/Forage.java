@@ -1,4 +1,3 @@
-
 package codelets.behaviors;
 
 import br.unicamp.cst.core.entities.Codelet;
@@ -11,20 +10,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import ws3dproxy.model.Thing;
 
-/** 
- * 
- * @author klaus
- * 
- * 
- */
-
 public class Forage extends Codelet {
+<<<<<<< Updated upstream
     
         private MemoryObject knownMO;
         private List<Thing> known;
         private MemoryObject legsMO;
         
+=======
+  private MemoryObject knownMO;
+  private List<Thing> known;
+  private MemoryObject legsMO;
+>>>>>>> Stashed changes
 
+  /**
+   * Default constructor
+   */
+  public Forage() {}
 
 	/**
 	 * Default constructor
@@ -69,5 +71,12 @@ public class Forage extends Codelet {
             }
         }
 
+  @Override
+  public void accessMemoryObjects() {
+    knownMO = (MemoryObject) this.getInput("KNOWN_APPLES");
+    legsMO = (MemoryObject) this.getOutput("LEGS");
+  }
 
+  @Override
+  public void calculateActivation() {}
 }
