@@ -1,4 +1,5 @@
 import br.unicamp.cst.core.entities.Codelet;
+import br.unicamp.cst.core.entities.MemoryContainer;
 import br.unicamp.cst.core.entities.MemoryObject;
 import br.unicamp.cst.core.entities.Mind;
 import codelets.behaviors.EatClosestApple;
@@ -33,6 +34,11 @@ public class AgentMind extends Mind {
                 MemoryObject closestAppleMO;
                 MemoryObject knownApplesMO;
                 
+                MemoryObject goToAppleLegsMO;
+                MemoryObject forageMO;
+                
+                MemoryContainer legsMC;
+                
                 //Initialize Memory Objects
                 legsMO=createMemoryObject("LEGS", "");
 		handsMO=createMemoryObject("HANDS", "");
@@ -44,6 +50,15 @@ public class AgentMind extends Mind {
                 closestAppleMO=createMemoryObject("CLOSEST_APPLE", closestApple);
                 List<Thing> knownApples = Collections.synchronizedList(new ArrayList<Thing>());
                 knownApplesMO=createMemoryObject("KNOWN_APPLES", knownApples);
+                
+                forageMO = createMemoryObject("FORAGE_LEGS_MO");
+                goToAppleLegsMO = createMemoryObject("GO_TO_APPLE_LEGS_MO");
+                
+                
+                legsMC = createMemoryContainer("LEGS_MC");
+                
+                legsMC.add(goToAppleLegsMO);
+                legsMC.add(forageMO);
                 
                 // Create and Populate MindViewer
                 MindView mv = new MindView("MindView");
@@ -90,7 +105,8 @@ public class AgentMind extends Mind {
 		Codelet goToClosestApple = new GoToClosestApple(creatureBasicSpeed,reachDistance);
 		goToClosestApple.addInput(closestAppleMO);
 		goToClosestApple.addInput(innerSenseMO);
-		goToClosestApple.addOutput(legsMO);
+                goToClosestApple.addOutput(goToAppleLegsMO);
+                goToClosestApple.addOutput(legsMC);
                 insertCodelet(goToClosestApple);
 		
 		Codelet eatApple=new EatClosestApple(reachDistance);
@@ -103,6 +119,7 @@ public class AgentMind extends Mind {
                 Codelet forage=new Forage();
 		forage.addInput(knownApplesMO);
                 forage.addOutput(legsMO);
+                forage.addOutput(legsMC);
                 insertCodelet(forage);
                 
                 // sets a time step for running the codelets to avoid heating too much your machine

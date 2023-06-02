@@ -3,6 +3,8 @@ package codelets.motor;
 
 import org.json.JSONObject;
 import br.unicamp.cst.core.entities.Codelet;
+import br.unicamp.cst.core.entities.Memory;
+import br.unicamp.cst.core.entities.MemoryContainer;
 import br.unicamp.cst.core.entities.MemoryObject;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -17,10 +19,10 @@ import ws3dproxy.model.Creature;
 
 public class LegsActionCodelet extends Codelet{
 
-	private MemoryObject legsActionMO;
+	private Memory legsActionMC;
 	private String previousLegsAction="";
         private Creature c;
-        double old_angle = 0;
+        double old_angle = 20;
         int k=0;
         static Logger log = Logger.getLogger(LegsActionCodelet.class.getCanonicalName());
 
@@ -30,13 +32,13 @@ public class LegsActionCodelet extends Codelet{
 	
 	@Override
 	public void accessMemoryObjects() {
-		legsActionMO=(MemoryObject)this.getInput("LEGS");
+		legsActionMC=this.getInput("LEGS");
 	}
 	
 	@Override
 	public void proc() {
             
-                String comm = (String) legsActionMO.getI();
+                String comm = (String) legsActionMC.getI();
                 if (comm == null) comm = "";
 		if(!comm.equals("")){
 			

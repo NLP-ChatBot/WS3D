@@ -8,6 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
+import br.unicamp.cst.core.exceptions.CodeletActivationBoundsException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import memory.CreatureInnerSense;
 import ws3dproxy.model.Thing;
 
@@ -16,6 +21,7 @@ public class GoToClosestApple extends Codelet {
 	private MemoryObject closestAppleMO;
 	private MemoryObject selfInfoMO;
 	private MemoryObject legsMO;
+        
 	private int creatureBasicSpeed;
 	private double reachDistance;
 
@@ -26,9 +32,11 @@ public class GoToClosestApple extends Codelet {
 
 	@Override
 	public void accessMemoryObjects() {
+                
+                
 		closestAppleMO=(MemoryObject)this.getInput("CLOSEST_APPLE");
 		selfInfoMO=(MemoryObject)this.getInput("INNER");
-		legsMO=(MemoryObject)this.getOutput("LEGS");
+		legsMO=(MemoryObject)this.getOutput("GO_TO_APPLE_LEGS_MO");
 	}
 
 	@Override
@@ -76,15 +84,31 @@ public class GoToClosestApple extends Codelet {
 					message.put("Y", (int)appleY);
                                         message.put("SPEED", 0.0);	
 				}
-				legsMO.setI(message.toString());
+				legsMO.setsI(message.toString());
+                                
+                            
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}	
 		}
+                
+                legsMO.setEvaluation(this.getActivation());
 	}//end proc
         
         @Override
         public void calculateActivation() {
+            try {
+                CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
+                
+                this.setActivation(1 - cis.fuel/1000);
+//                if(cis.fuel < 700)
+//                    this.setActivation(0.999d);
+//                else
+//                    this.setActivation(0);
+            } catch (CodeletActivationBoundsException ex) {
+                Logger.getLogger(GoToClosestApple.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         
         }
 
