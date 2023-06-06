@@ -10,13 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import ws3dproxy.model.Thing;
 
-/**
- *
- * @author klaus
- *
- *
- */
-
 public class Forage extends Codelet {
   private MemoryObject knownMO;
   private List<Thing> known;

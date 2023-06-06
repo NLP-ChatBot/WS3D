@@ -8,10 +8,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import memory.CreatureInnerSense;
 import ws3dproxy.model.Thing;
 
-/**
- * @author klaus
- *
- */
 public class ClosestAppleDetector extends Codelet {
   private MemoryObject knownMO;
   private MemoryObject closestAppleMO;

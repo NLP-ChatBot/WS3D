@@ -7,14 +7,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import ws3dproxy.model.Thing;
 
-/**
- * Detect apples in the vision field.
- * 	This class detects a number of things related to apples, such as if there are any within reach,
- * any on sight, if they are rotten, and so on.
- *
- * @author klaus
- *
- */
 public class AppleDetector extends Codelet {
   private MemoryObject visionMO;
   private MemoryObject knownApplesMO;
