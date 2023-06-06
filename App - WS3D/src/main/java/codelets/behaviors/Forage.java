@@ -45,9 +45,10 @@ public class Forage extends Codelet {
   @Override
   public void calculateActivation() {
     try {
-      known = (List<Thing>) knownMO.getI();
+      List<Thing> known = (List<Thing>) knownMO.getI();
+
       if (known.size() == 0) {
-        this.setActivation(0.66d);
+        this.setActivation(0.d);
       } else {
         this.setActivation(0d);
       }

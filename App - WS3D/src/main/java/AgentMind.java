@@ -5,10 +5,14 @@ import br.unicamp.cst.core.entities.Mind;
 import codelets.behaviors.EatClosestApple;
 import codelets.behaviors.Forage;
 import codelets.behaviors.GoToClosestApple;
+import codelets.behaviors.GoToClosestJewel;
+import codelets.behaviors.PickupClosestJewel;
 import codelets.motor.HandsActionCodelet;
 import codelets.motor.LegsActionCodelet;
 import codelets.perception.AppleDetector;
 import codelets.perception.ClosestAppleDetector;
+import codelets.perception.JewelDetector;
+import codelets.perception.ClosestJewelDetector;
 import codelets.sensors.InnerSense;
 import codelets.sensors.Vision;
 import java.util.ArrayList;
@@ -31,11 +35,14 @@ public class AgentMind extends Mind {
     MemoryObject innerSenseMO;
     MemoryObject closestAppleMO;
     MemoryObject knownApplesMO;
-
+    MemoryObject knownJewelsMO;
+    MemoryObject closestJewelMO;
     MemoryObject goToAppleLegsMO;
+    MemoryObject goToJewelLegsMO;
+    MemoryObject pickupJewelHandsMO;
     MemoryObject forageMO;
-
     MemoryContainer legsMC;
+    MemoryContainer handsMC;
 
     //Initialize Memory Objects
     legsMO = createMemoryObject("LEGS", "");
@@ -56,10 +63,24 @@ public class AgentMind extends Mind {
     forageMO = createMemoryObject("FORAGE_LEGS_MO");
     goToAppleLegsMO = createMemoryObject("GO_TO_APPLE_LEGS_MO");
 
+    // Initialize new MemoryObjects
+    List<Thing> knownJewels = Collections.synchronizedList(new ArrayList<Thing>());
+    knownJewelsMO = createMemoryObject("KNOWN_JEWELS", knownJewels);
+
+    Thing closestJewel = null;
+    closestJewelMO = createMemoryObject("CLOSEST_JEWEL", closestJewel);
+
+    goToJewelLegsMO = createMemoryObject("GO_TO_JEWEL_LEGS_MO");
+    pickupJewelHandsMO = createMemoryObject("PICKUP_JEWEL_HANDS_MO");
+
     legsMC = createMemoryContainer("LEGS_MC");
+    handsMC = createMemoryContainer("HANDS_MC");
 
     legsMC.add(goToAppleLegsMO);
     legsMC.add(forageMO);
+    legsMC.add(goToJewelLegsMO);
+
+    handsMC.add(pickupJewelHandsMO);
 
     // Create and Populate MindViewer
     MindView mv = new MindView("MindView");
@@ -69,6 +90,8 @@ public class AgentMind extends Mind {
     mv.addMO(innerSenseMO);
     mv.addMO(handsMO);
     mv.addMO(legsMO);
+    mv.addMO(knownJewelsMO);
+    mv.addMO(closestJewelMO);
     mv.StartTimer();
     mv.setVisible(true);
 
@@ -102,6 +125,18 @@ public class AgentMind extends Mind {
     closestAppleDetector.addOutput(closestAppleMO);
     insertCodelet(closestAppleDetector);
 
+    // Create Perception Codelets for jewels
+    Codelet jd = new JewelDetector();
+    jd.addInput(visionMO);
+    jd.addOutput(knownJewelsMO);
+    insertCodelet(jd);
+
+    Codelet closestJewelDetector = new ClosestJewelDetector();
+    closestJewelDetector.addInput(knownJewelsMO);
+    closestJewelDetector.addInput(innerSenseMO);
+    closestJewelDetector.addOutput(closestJewelMO);
+    insertCodelet(closestJewelDetector);
+
     // Create Behavior Codelets
     Codelet goToClosestApple = new GoToClosestApple(
       creatureBasicSpeed,
@@ -125,6 +160,22 @@ public class AgentMind extends Mind {
     forage.addOutput(legsMO);
     forage.addOutput(legsMC);
     insertCodelet(forage);
+
+    // Create Behavior Codelets for jewels
+    Codelet goToClosestJewel = new GoToClosestJewel(creatureBasicSpeed, reachDistance);
+    goToClosestJewel.addInput(closestJewelMO);
+    goToClosestJewel.addInput(innerSenseMO);
+    goToClosestJewel.addOutput(goToJewelLegsMO);
+    goToClosestJewel.addOutput(legsMC);
+    insertCodelet(goToClosestJewel);
+
+    Codelet pickupJewel = new PickupClosestJewel(reachDistance);
+    pickupJewel.addInput(closestJewelMO);
+    pickupJewel.addInput(innerSenseMO);
+    pickupJewel.addOutput(handsMO);
+    pickupJewel.addOutput(knownJewelsMO);
+    pickupJewel.addOutput(handsMC);
+    insertCodelet(pickupJewel);
 
     // sets a time step for running the codelets to avoid heating too much your machine
     for (Codelet c : this.getCodeRack().getAllCodelets()) c.setTimeStep(200);

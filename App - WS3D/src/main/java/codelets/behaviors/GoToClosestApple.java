@@ -88,13 +88,18 @@ public class GoToClosestApple extends Codelet {
   @Override
   public void calculateActivation() {
     try {
+      Thing closestApple = (Thing) closestAppleMO.getI();
       CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
+      double distance = cis.position.distance(
+        closestApple.getX1(),
+        closestApple.getY1()
+      );
 
-      this.setActivation(1 - cis.fuel / 1000);
-      //                if(cis.fuel < 700)
-      //                    this.setActivation(0.999d);
-      //                else
-      //                    this.setActivation(0);
+      if (distance <= reachDistance && cis.fuel < 400) {
+        this.setActivation(0.9d);
+      } else {
+        this.setActivation(0d);
+      }
     } catch (CodeletActivationBoundsException ex) {
       Logger
         .getLogger(GoToClosestApple.class.getName())

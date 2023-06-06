@@ -76,9 +76,18 @@ public class GoToClosestJewel extends Codelet {
   @Override
   public void calculateActivation() {
     try {
+      Thing closestJewel = (Thing) closestJewelMO.getI();
       CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
+      double distance = cis.position.distance(
+        closestJewel.getX1(),
+        closestJewel.getY1()
+      );
 
-      this.setActivation(1 - cis.fuel / 1000);
+      if (distance <= reachDistance && cis.fuel > 400) {
+        this.setActivation(0.8d);
+      } else {
+        this.setActivation(0d);
+      }
     } catch (CodeletActivationBoundsException ex) {
       Logger
         .getLogger(GoToClosestJewel.class.getName())
