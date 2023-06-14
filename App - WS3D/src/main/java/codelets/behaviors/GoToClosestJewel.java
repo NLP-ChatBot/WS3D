@@ -3,7 +3,6 @@ package codelets.behaviors;
 import br.unicamp.cst.core.entities.Codelet;
 import br.unicamp.cst.core.entities.MemoryObject;
 import br.unicamp.cst.core.exceptions.CodeletActivationBoundsException;
-import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,11 +43,8 @@ public class GoToClosestJewel extends Codelet {
       double selfX = cis.position.getX();
       double selfY = cis.position.getY();
 
-      Point2D pJewel = new Point();
-      pJewel.setLocation(jewelX, jewelY);
-
-      Point2D pSelf = new Point();
-      pSelf.setLocation(selfX, selfY);
+      Point2D pJewel = new Point2D.Double(jewelX, jewelY);
+      Point2D pSelf = new Point2D.Double(selfX, selfY);
 
       double distance = pSelf.distance(pJewel);
       JSONObject message = new JSONObject();
@@ -78,10 +74,17 @@ public class GoToClosestJewel extends Codelet {
     try {
       Thing closestJewel = (Thing) closestJewelMO.getI();
       CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
-      double distance = cis.position.distance(
-        closestJewel.getX1(),
-        closestJewel.getY1()
-      );
+
+      double jewelX = closestJewel.getX1();
+      double jewelY = closestJewel.getY1();
+
+      double selfX = cis.position.getX();
+      double selfY = cis.position.getY();
+
+      Point2D pJewel = new Point2D.Double(jewelX, jewelY);
+      Point2D pSelf = new Point2D.Double(selfX, selfY);
+
+      double distance = pSelf.distance(pJewel); // aqui foi alterado
 
       if (distance <= reachDistance && cis.fuel > 400) {
         this.setActivation(0.8d);

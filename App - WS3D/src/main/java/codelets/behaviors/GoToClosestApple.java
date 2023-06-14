@@ -90,10 +90,18 @@ public class GoToClosestApple extends Codelet {
     try {
       Thing closestApple = (Thing) closestAppleMO.getI();
       CreatureInnerSense cis = (CreatureInnerSense) selfInfoMO.getI();
-      double distance = cis.position.distance(
-        closestApple.getX1(),
-        closestApple.getY1()
-      );
+
+      double appleX = closestApple.getX1();
+      double appleY = closestApple.getY1();
+      double selfX = cis.position.getX();
+      double selfY = cis.position.getY();
+
+      Point2D pApple = new Point();
+      pApple.setLocation(appleX, appleY);
+      Point2D pSelf = new Point();
+      pSelf.setLocation(selfX, selfY);
+
+      double distance = pSelf.distance(pApple);
 
       if (distance <= reachDistance && cis.fuel < 400) {
         this.setActivation(0.9d);
