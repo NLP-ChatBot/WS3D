@@ -88,6 +88,7 @@ public class MindView extends javax.swing.JFrame {
         if (j == 7) {
             try {
               World.createFood(0,r.nextInt(800) , r.nextInt(600));
+              World.createJewel(2,r.nextInt(600) , r.nextInt(800));
             } catch (Exception e) {
                 e.printStackTrace();
             }
