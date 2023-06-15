@@ -175,6 +175,8 @@ public class Main {
             ProcessSackIt(st);
         } else if (command.equalsIgnoreCase(("eatit"))) {
             ProcessEatIt(st);
+        } else if (command.equalsIgnoreCase(("pickup"))) {
+            ProcessSackIt(st);
         } else if (command.equalsIgnoreCase(("hideit"))) {
             ProcessHideIt(st);
         } else if (command.equalsIgnoreCase(("unhideit"))) {

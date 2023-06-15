@@ -56,6 +56,17 @@ public class HandsActionCodelet extends Codelet {
               "Sending Eat command to agent:****** " + objectName + "**********"
             );
           }
+          if (action.equals("PICKUP")) {
+            try {
+              // c.eatIt(command);
+              c.putInSack(objectName);
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+            log.info(
+              "Sending Eat command to agent:****** " + objectName + "**********"
+            );
+          }
           if (action.equals("BURY")) {
             try {
               c.hideIt(objectName);
