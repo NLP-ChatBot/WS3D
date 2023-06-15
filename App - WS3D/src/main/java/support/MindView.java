@@ -85,15 +85,23 @@ public class MindView extends javax.swing.JFrame {
             }   
         text.setText(alltext);
         j++;
-        if (j == 7) {
+        if (j == 21) {
             try {
-              World.createFood(0,r.nextInt(800) , r.nextInt(600));
-              World.createJewel(2,r.nextInt(600) , r.nextInt(800));
+              int maxX = 800; 
+              int maxY = 600; 
+              int appleX = r.nextInt(maxX);
+                int appleY = r.nextInt(maxY);
+                int jewelX = r.nextInt(maxX);
+                int jewelY = r.nextInt(maxY);
+
+                World.createFood(0, appleX, appleY);
+                World.createJewel(2, jewelX, jewelY);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             j = 0;
         }
+    }
     }
 
     /**
@@ -128,9 +136,6 @@ public class MindView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

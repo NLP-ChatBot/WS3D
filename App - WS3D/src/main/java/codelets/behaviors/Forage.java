@@ -15,9 +15,6 @@ public class Forage extends Codelet {
   private List<Thing> known;
   private MemoryObject legsMO;
 
-  /**
-   * Default constructor
-   */
   public Forage() {}
 
   @Override
@@ -48,9 +45,9 @@ public class Forage extends Codelet {
       List<Thing> known = (List<Thing>) knownMO.getI();
 
       if (known.size() == 0) {
-        this.setActivation(0.d);
+        this.setActivation(7.d); 
       } else {
-        this.setActivation(0d);
+        this.setActivation(0d); 
       }
     } catch (CodeletActivationBoundsException ex) {
       Logger.getLogger(Forage.class.getName()).log(Level.SEVERE, null, ex);
