@@ -1,18 +1,16 @@
 package codelets.motor;
 
 import br.unicamp.cst.core.entities.Codelet;
-import br.unicamp.cst.core.entities.MemoryObject;
-import java.util.Random;
+import br.unicamp.cst.core.entities.Memory;
 import java.util.logging.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ws3dproxy.model.Creature;
 
 public class HandsActionCodelet extends Codelet {
-  private MemoryObject handsMO;
+  private Memory handsMC;
   private String previousHandsAction = "";
   private Creature c;
-  private Random r = new Random();
   static Logger log = Logger.getLogger(
     HandsActionCodelet.class.getCanonicalName()
   );
@@ -23,11 +21,11 @@ public class HandsActionCodelet extends Codelet {
 
   @Override
   public void accessMemoryObjects() {
-    handsMO = (MemoryObject) this.getInput("HANDS");
+    handsMC = this.getInput("HANDS_MC");
   }
 
   public void proc() {
-    String command = (String) handsMO.getI();
+    String command = (String) handsMC.getI();
 
     if (!command.equals("") && (!command.equals(previousHandsAction))) {
       JSONObject jsonAction;
@@ -73,7 +71,7 @@ public class HandsActionCodelet extends Codelet {
         e.printStackTrace();
       }
     }
-    previousHandsAction = (String) handsMO.getI();
+    previousHandsAction = (String) handsMC.getI();
   } //end proc
 
   @Override

@@ -30,7 +30,7 @@ public class EatClosestApple extends Codelet {
   public void accessMemoryObjects() {
     closestAppleMO = (MemoryObject) this.getInput("CLOSEST_APPLE");
     innerSenseMO = (MemoryObject) this.getInput("INNER");
-    handsMO = (MemoryObject) this.getOutput("HANDS");
+    handsMO = (MemoryObject) this.getOutput("EAT_APPLE_HANDS_MO ");
     knownMO = (MemoryObject) this.getOutput("KNOWN_APPLES");
   }
 

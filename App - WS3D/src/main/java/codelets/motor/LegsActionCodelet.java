@@ -25,7 +25,7 @@ public class LegsActionCodelet extends Codelet {
 
   @Override
   public void accessMemoryObjects() {
-    legsActionMC = this.getInput("LEGS");
+    legsActionMC = this.getInput("LEGS_MC");
   }
 
   @Override

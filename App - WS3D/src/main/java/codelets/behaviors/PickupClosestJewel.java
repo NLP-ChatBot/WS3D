@@ -30,7 +30,7 @@ public class PickupClosestJewel extends Codelet {
   public void accessMemoryObjects() {
     closestJewelMO = (MemoryObject) this.getInput("CLOSEST_JEWEL");
     innerSenseMO = (MemoryObject) this.getInput("INNER");
-    handsMO = (MemoryObject) this.getOutput("HANDS");
+    handsMO = (MemoryObject) this.getOutput("PICKUP_JEWEL_HANDS_MO");
     knownMO = (MemoryObject) this.getOutput("KNOWN_JEWELS");
   }
 

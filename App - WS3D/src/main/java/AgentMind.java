@@ -29,8 +29,6 @@ public class AgentMind extends Mind {
   public AgentMind(Environment env) {
     super();
     // Declare Memory Objects
-    MemoryObject legsMO;
-    MemoryObject handsMO;
     MemoryObject visionMO;
     MemoryObject innerSenseMO;
     MemoryObject closestAppleMO;
@@ -40,13 +38,12 @@ public class AgentMind extends Mind {
     MemoryObject goToAppleLegsMO;
     MemoryObject goToJewelLegsMO;
     MemoryObject pickupJewelHandsMO;
+    MemoryObject eatAppleHandsMO;
     MemoryObject forageMO;
     MemoryContainer legsMC;
     MemoryContainer handsMC;
 
     //Initialize Memory Objects
-    legsMO = createMemoryObject("LEGS", "");
-    handsMO = createMemoryObject("HANDS", "");
     List<Thing> vision_list = Collections.synchronizedList(
       new ArrayList<Thing>()
     );
@@ -71,7 +68,9 @@ public class AgentMind extends Mind {
     closestJewelMO = createMemoryObject("CLOSEST_JEWEL", closestJewel);
 
     goToJewelLegsMO = createMemoryObject("GO_TO_JEWEL_LEGS_MO");
+    
     pickupJewelHandsMO = createMemoryObject("PICKUP_JEWEL_HANDS_MO");
+    eatAppleHandsMO = createMemoryObject("EAT_APPLE_HANDS_MO");
 
     legsMC = createMemoryContainer("LEGS_MC");
     handsMC = createMemoryContainer("HANDS_MC");
@@ -81,6 +80,7 @@ public class AgentMind extends Mind {
     legsMC.add(goToJewelLegsMO);
 
     handsMC.add(pickupJewelHandsMO);
+    handsMC.add(eatAppleHandsMO);
 
     // Create and Populate MindViewer
     MindView mv = new MindView("MindView");
@@ -88,8 +88,8 @@ public class AgentMind extends Mind {
     mv.addMO(visionMO);
     mv.addMO(closestAppleMO);
     mv.addMO(innerSenseMO);
-    mv.addMO(handsMO);
-    mv.addMO(legsMO);
+    //mv.addMO(handsMC);
+    //mv.addMO(legsMO);
     mv.addMO(knownJewelsMO);
     mv.addMO(closestJewelMO);
     mv.StartTimer();
@@ -106,11 +106,11 @@ public class AgentMind extends Mind {
 
     // Create Actuator Codelets
     Codelet legs = new LegsActionCodelet(env.c);
-    legs.addInput(legsMO);
+    legs.addInput(legsMC);
     insertCodelet(legs);
 
     Codelet hands = new HandsActionCodelet(env.c);
-    hands.addInput(handsMO);
+    hands.addInput(handsMC);
     insertCodelet(hands);
 
     // Create Perception Codelets
@@ -145,20 +145,17 @@ public class AgentMind extends Mind {
     goToClosestApple.addInput(closestAppleMO);
     goToClosestApple.addInput(innerSenseMO);
     goToClosestApple.addOutput(goToAppleLegsMO);
-    goToClosestApple.addOutput(legsMC);
     insertCodelet(goToClosestApple);
 
     Codelet eatApple = new EatClosestApple(reachDistance);
     eatApple.addInput(closestAppleMO);
     eatApple.addInput(innerSenseMO);
-    eatApple.addOutput(handsMO);
+    eatApple.addOutput(eatAppleHandsMO);
     eatApple.addOutput(knownApplesMO);
     insertCodelet(eatApple);
 
     Codelet forage = new Forage();
     forage.addInput(knownApplesMO);
-    forage.addOutput(legsMO);
-    forage.addOutput(legsMC);
     insertCodelet(forage);
 
     // Create Behavior Codelets for jewels
@@ -166,15 +163,13 @@ public class AgentMind extends Mind {
     goToClosestJewel.addInput(closestJewelMO);
     goToClosestJewel.addInput(innerSenseMO);
     goToClosestJewel.addOutput(goToJewelLegsMO);
-    goToClosestJewel.addOutput(legsMC);
     insertCodelet(goToClosestJewel);
 
     Codelet pickupJewel = new PickupClosestJewel(reachDistance);
     pickupJewel.addInput(closestJewelMO);
     pickupJewel.addInput(innerSenseMO);
-    pickupJewel.addOutput(handsMO);
     pickupJewel.addOutput(knownJewelsMO);
-    pickupJewel.addOutput(handsMC);
+    pickupJewel.addOutput(pickupJewelHandsMO);
     insertCodelet(pickupJewel);
 
     // sets a time step for running the codelets to avoid heating too much your machine
