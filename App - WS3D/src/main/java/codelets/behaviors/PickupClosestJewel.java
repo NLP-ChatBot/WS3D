@@ -58,19 +58,19 @@ public class PickupClosestJewel extends Codelet {
       double distance = pSelf.distance(pJewel);
       JSONObject message = new JSONObject();
       try {
-        if (distance < reachDistance) { // Pickup it
+        if (distance < reachDistance) { 
           message.put("OBJECT", jewelName);
           message.put("ACTION", "SACKIT");
           handsMO.setI(message.toString());
-          DestroyClosestJewel(); // Consumir a jóia
+          DestroyClosestJewel(); 
         } else {
-          handsMO.setI(""); // nothing
+          handsMO.setI("");
         }
       } catch (JSONException e) {
         e.printStackTrace();
       }
     } else {
-      handsMO.setI(""); // nothing
+      handsMO.setI("");
     }
   }
 

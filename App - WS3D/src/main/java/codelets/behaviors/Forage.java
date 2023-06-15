@@ -40,17 +40,5 @@ public class Forage extends Codelet {
   }
 
   @Override
-  public void calculateActivation() {
-    try {
-      List<Thing> known = (List<Thing>) knownMO.getI();
-
-      if (known.size() == 0) {
-        this.setActivation(7.d); 
-      } else {
-        this.setActivation(0d); 
-      }
-    } catch (CodeletActivationBoundsException ex) {
-      Logger.getLogger(Forage.class.getName()).log(Level.SEVERE, null, ex);
-    }
-  }
+  public void calculateActivation() {}
 }
