@@ -38,9 +38,9 @@ public class Environment {
           try {   
              World w = World.getInstance();
              w.reset();
-             World.createFood(0, 350, 75);
-             World.createFood(0, 100, 220);
-             World.createFood(0, 250, 210);
+             World.createJewel(0, 350, 75);
+             World.createJewel(0, 100, 220);
+             World.createJewel(0, 250, 210);
              c = proxy.createCreature(100,450,0);
              c.start();
           } catch (CommandExecException e) {
