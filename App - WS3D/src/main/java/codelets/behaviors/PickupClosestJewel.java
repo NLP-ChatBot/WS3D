@@ -58,24 +58,21 @@ public class PickupClosestJewel extends Codelet {
       double distance = pSelf.distance(pJewel);
       JSONObject message = new JSONObject();
       try {
-        if (distance < reachDistance) { //pickup it
+        if (distance < reachDistance) { // Pickup it
           message.put("OBJECT", jewelName);
           message.put("ACTION", "PICKUP");
           handsMO.setI(message.toString());
-          DestroyClosestJewel();
+          DestroyClosestJewel(); // Consumir a jóia
         } else {
-          handsMO.setI(""); //nothing
+          handsMO.setI(""); // nothing
         }
       } catch (JSONException e) {
         e.printStackTrace();
       }
     } else {
-      handsMO.setI(""); //nothing
+      handsMO.setI(""); // nothing
     }
   }
-
-  @Override
-  public void calculateActivation() {}
 
   public void DestroyClosestJewel() {
     int r = -1;
@@ -83,13 +80,21 @@ public class PickupClosestJewel extends Codelet {
     synchronized (known) {
       CopyOnWriteArrayList<Thing> myknown = new CopyOnWriteArrayList<>(known);
       for (Thing t : myknown) {
-        if (closestJewel != null) if (
-          t.getName().equals(closestJewel.getName())
-        ) r = i;
+        if (
+          closestJewel != null && t.getName().equals(closestJewel.getName())
+        ) {
+          r = i;
+        }
         i++;
       }
-      if (r != -1) known.remove(r);
-      closestJewel = null;
+      if (r != -1) {
+        known.remove(r);
+        closestJewel = null;
+        closestJewelMO.setI(closestJewel);
+      }
     }
   }
+
+  @Override
+  public void calculateActivation() {}
 }
