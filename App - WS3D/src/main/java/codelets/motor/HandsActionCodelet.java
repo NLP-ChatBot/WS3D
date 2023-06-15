@@ -34,7 +34,7 @@ public class HandsActionCodelet extends Codelet {
         if (jsonAction.has("ACTION") && jsonAction.has("OBJECT")) {
           String action = jsonAction.getString("ACTION");
           String objectName = jsonAction.getString("OBJECT");
-          if (action.equals("PICKUP")) {
+          if (action.equals("SACKIT")) {
             try {
               c.putInSack(objectName);
             } catch (Exception e) {
@@ -49,17 +49,6 @@ public class HandsActionCodelet extends Codelet {
           if (action.equals("EATIT")) {
             try {
               c.eatIt(objectName);
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
-            log.info(
-              "Sending Eat command to agent:****** " + objectName + "**********"
-            );
-          }
-          if (action.equals("PICKUP")) {
-            try {
-              // c.eatIt(command);
-              c.putInSack(objectName);
             } catch (Exception e) {
               e.printStackTrace();
             }

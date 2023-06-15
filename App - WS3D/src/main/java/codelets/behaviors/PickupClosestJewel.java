@@ -60,7 +60,7 @@ public class PickupClosestJewel extends Codelet {
       try {
         if (distance < reachDistance) { // Pickup it
           message.put("OBJECT", jewelName);
-          message.put("ACTION", "PICKUP");
+          message.put("ACTION", "SACKIT");
           handsMO.setI(message.toString());
           DestroyClosestJewel(); // Consumir a jóia
         } else {
